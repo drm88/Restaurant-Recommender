@@ -52,7 +52,7 @@ class LinkedList:
 
 #*** Initialize the data ***
 #All data that will be used here is kept in restaurantData.py for easy access
-#This will build a Linked List of all the available types of cuisines.                
+#This will build a Linked List of all the available types of cuisines                
 def build_cuisines_list():
     cuisines = LinkedList()
     for cuisine in types:
@@ -75,6 +75,9 @@ restaurant_list = build_restaurants_list()
 selected_food = ""
 
 #User interaction
+#Currently the script will terminate after 1 serarch, this next section could be wrapped in a loop to ask the user if it should run again.
+
+#This will only accept fully typed out types of food, it could be modified to accept partial spellings which may result in multiple types of food
 print('What would you like to eat? Please enter a type of food: ')
 user_input = str(input()).lower()
 
@@ -89,6 +92,7 @@ while cuisine_list_head_node is not None:
 
 print('Selected food type: ' + selected_food)
 
+#This will print out a list of viable restaurants matching the selected food type
 restaurant_list_head_node = restaurant_list.get_head_node()
 while restaurant_list_head_node.get_next_node() is not None:
     sublist_head = restaurant_list_head_node.get_value().get_head_node()
