@@ -1,6 +1,8 @@
-#this is a script to recommend a place to eat based off a user input name or food type
+#This is a script to recommend a place to eat based off a user input name or food type
 from restaurantData import *
 
+#Reusing the Node and LnkedList classes built in previous exercises, this will form data structures we will be working with
+#I might split this part off into separate files for simplicity sake later on
 class Node:
     def __init__(self, value, next_node=None):
         self.value = value
@@ -48,7 +50,28 @@ class LinkedList:
                 else:
                     current_node = next_node
 
-#initialize the data
+#*** Initialize the data ***
+#All data that will be used here is kept in restaurantData.py for easy access
+#This will build a Linked List of all the available types of cuisines.                
+def build_cuisines_list():
+    cuisines = LinkedList()
+    for cuisine in types:
+        cuisines.insert_beginning(cuisine)
+    return cuisines
+
+#This will build a list of lists where each type of cuisine (Asian, Mexican, Italian etc) wioll have a list of matching resturants associated.
+def build_restaurants_list():
+    restaurants = LinkedList()
+    for cuisine in types:
+        matching_restaurants = LinkedList()
+        for restaurant in restaurant_data:
+            if restaurant[0] == cuisine:
+                matching_restaurants.insert_beginning(restaurant)
+        restaurants.insert_beginning(matching_restaurants)
+    return restaurants
+
+cuisine_list = build_cuisines_list()
+restaurant_list = build_restaurants_list()
 
 
 def welcome():
