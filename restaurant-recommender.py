@@ -59,7 +59,7 @@ def build_cuisines_list():
         cuisines.insert_beginning(cuisine)
     return cuisines
 
-#This will build a list of lists where each type of cuisine (Asian, Mexican, Italian etc) wioll have a list of matching resturants associated.
+#This will build a list of lists where each type of cuisine (Asian, Mexican, Italian etc) will have a list of matching resturants associated.
 def build_restaurants_list():
     restaurants = LinkedList()
     for cuisine in types:
@@ -72,9 +72,33 @@ def build_restaurants_list():
 
 cuisine_list = build_cuisines_list()
 restaurant_list = build_restaurants_list()
+selected_food = ""
 
+#User interaction
+print('What would you like to eat? Please enter a type of food: ')
+user_input = str(input()).lower()
 
-def welcome():
-    print('What would you like to eat? Please enter a type of food: ')
-    return
+#Makes sure the user has input a valid type of food
+hits = []
+cuisine_list_head_node = cuisine_list.get_head_node()
+while cuisine_list_head_node is not None:
+    if str(cuisine_list_head_node.get_value()) == user_input:
+        hits.append(cuisine_list_head_node.get_value())
+    cuisine_list_head_node = cuisine_list_head_node.get_next_node()
+    selected_food = user_input
 
+print('Selected food type: ' + selected_food)
+
+restaurant_list_head_node = restaurant_list.get_head_node()
+while restaurant_list_head_node.get_next_node() is not None:
+    sublist_head = restaurant_list_head_node.get_value().get_head_node()
+    if sublist_head.get_value()[0] == selected_food:
+        while sublist_head.get_next_node() is not None:
+            print("--------------------------")
+            print("Name: " + sublist_head.get_value()[1])
+            print("Price: " + sublist_head.get_value()[2] + "/5")
+            print("Rating: " + sublist_head.get_value()[3] + "/5")
+            print("Address: " + sublist_head.get_value()[4])
+            print("--------------------------\n")
+            sublist_head = sublist_head.get_next_node()
+    restaurant_list_head_node = restaurant_list_head_node.get_next_node()
